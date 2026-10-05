@@ -25,22 +25,24 @@ namespace Lleap.UiTests.StepDefinitions
 
 
         [Given(@"I start Laerdal Simulation Home")]
-public void GivenIstartLaerdalSimulationHome()
-{
-    var process = TestEnvironment.StartSimulationHome();
-    _scenarioContext["SimulationHomeProcess"] = process;
+        public void GivenIstartLaerdalSimulationHome()
+        {
+            var process = TestEnvironment.StartSimulationHome();
+            _scenarioContext["SimulationHomeProcess"] = process;
 
-    using var automation = new UIA3Automation();
-    var homePage = new SimulationHomePage();
+            using var automation = new UIA3Automation();
+            var homePage = new SimulationHomePage();
 
-    var homeTitle = Retry.WhileNull(
-        () => homePage.FindHomeTitle(automation),
-        timeout: TimeSpan.FromSeconds(60)
-    ).Result;
+            var homeTitle = Retry.WhileNull(
+                () => homePage.FindHomeTitle(automation),
+                timeout: TimeSpan.FromSeconds(60),
+                interval: TimeSpan.FromSeconds(1),
+                ignoreException: true
+            ).Result;
 
-    Assert.That(homeTitle, Is.Not.Null,
-        "Laerdal Simulation Home did not open.");
-}
+            Assert.That(homeTitle, Is.Not.Null,
+                "Laerdal Simulation Home did not open.");
+        }
 
 
 
@@ -62,7 +64,9 @@ public void GivenIstartLaerdalSimulationHome()
 
             var licenseButton = Retry.WhileNull(
                 () => homePage.FindAddLicenseLaterButton(automation),
-                timeout: TimeSpan.FromSeconds(30)
+                timeout: TimeSpan.FromSeconds(30),
+                interval: TimeSpan.FromSeconds(1),
+                ignoreException: true
             ).Result;
 
             Assert.That(licenseButton, Is.Not.Null,
