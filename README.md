@@ -128,6 +128,8 @@ Run one test at a time.
 Do not lock Windows or let it go to sleep while a test is running.
 Avoid using the mouse or keyboard during the test.
 
+Before running Tests, close any remaining LLEAP, Simulation Engine and Voice Conference windows from the previous session.
+
 
 ## Test results and hooks
 
