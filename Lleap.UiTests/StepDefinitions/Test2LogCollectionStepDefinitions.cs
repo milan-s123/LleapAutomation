@@ -29,7 +29,7 @@ namespace Lleap.UiTests.StepDefinitions
         public void WhenIRightClickTheHelpTile()
         {
 
-            //Assert.Fail("Temporary failure screenshot hook.");
+           
 
             using var automation = new UIA3Automation();
 

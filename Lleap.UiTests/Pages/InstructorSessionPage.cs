@@ -154,32 +154,32 @@ namespace Lleap.UiTests.Pages
 
         public string SetPatientMonitorHrTo100(UIA3Automation automation)
         {
-            var dialog = OpenHeartRateDialog(automation);
+            var hrWindow = OpenHeartRateDialog(automation);
 
-            var input = dialog.FindFirstDescendant(
+            var input = hrWindow.FindFirstDescendant(
                 cf => cf.ByControlType(ControlType.Edit).And(cf.ByAutomationId("2093")))
                 ?? throw new InvalidOperationException("HR input was not found.");
 
             input.AsTextBox().Text = "100";
 
-            var ok = dialog.FindFirstDescendant(
+            var ok = hrWindow.FindFirstDescendant(
                 cf => cf.ByControlType(ControlType.Button).And(cf.ByAutomationId("1")))
                 ?? throw new InvalidOperationException("OK button was not found.");
 
             ok.Click();
 
             // Reopen the dialog to read the applied current value.
-            dialog = OpenHeartRateDialog(automation);
+            hrWindow = OpenHeartRateDialog(automation);
 
-            var currentValue = dialog.FindFirstDescendant(
+            var currentValue = hrWindow.FindFirstDescendant(
                 cf => cf.ByControlType(ControlType.Text).And(cf.ByAutomationId("2103")))
                 ?? throw new InvalidOperationException("Current HR value was not found.");
 
             string actualHr = currentValue.Name;
 
-            dialog.FindFirstDescendant(
-                cf => cf.ByControlType(ControlType.Button).And(cf.ByAutomationId("2")))
-                ?.Click();
+            var cancelButton = hrWindow.FindFirstDescendant(
+                cf => cf.ByControlType(ControlType.Button).And(cf.ByAutomationId("2")));
+                cancelButton?.Click();
 
             return actualHr;
         }

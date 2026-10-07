@@ -29,9 +29,11 @@ namespace Lleap.UiTests.StepDefinitions
             var sessionPage = new InstructorSessionPage();
 
             var startSessionButton = Retry.WhileNull(
-                () => sessionPage.FindStartSessionButton(automation),
-                timeout: TimeSpan.FromSeconds(30)
-            ).Result;
+     () => sessionPage.FindStartSessionButton(automation),
+     timeout: TimeSpan.FromSeconds(30),
+     interval: TimeSpan.FromSeconds(1),
+     ignoreException: true
+             ).Result;
             Assert.That(startSessionButton, Is.Not.Null,
                 "Start session button was not found.");
 
